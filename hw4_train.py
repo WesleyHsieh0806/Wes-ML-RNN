@@ -692,10 +692,10 @@ testing_data = os.path.join(path_prefix, 'data/testing_data.txt')
 w2v_path = os.path.join(path_prefix, 'w2v_all.model')
 
 # 定義句子長度、要不要固定 embedding、batch 大小、要訓練幾個 epoch、learning rate 的值、model 的資料夾路徑
-sen_len = 28
+sen_len = 30
 fix_embedding = True  # fix embedding during training
 batch_size = 128
-epoch = 11
+epoch = 9
 lr = 0.001
 w2v_vector_dim = 200
 # model_dir = os.path.join(path_prefix, 'model/') # model directory for checkpoint model
