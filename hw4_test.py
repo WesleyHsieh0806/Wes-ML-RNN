@@ -713,10 +713,10 @@ print("loading data ...")  # 把 'training_label.txt' 跟 'training_nolabel.txt'
 
 # 製作一個 model 的對象
 
-model = LSTM_Net(embedding, embedding_dim=w2v_vector_dim, hidden_dim=50,
-                 num_layers=5, dropout=0.5, fix_embedding=fix_embedding, bi=True)
+#  model = LSTM_Net(embedding, embedding_dim=w2v_vector_dim, hidden_dim=50,
+#                  num_layers=5, dropout=0.5, fix_embedding=fix_embedding, bi=True)
 # device為 "cuda"，model 使用 GPU 來訓練（餵進去的 inputs 也需要是 cuda tensor）
-model = model.to(device)
+# model = model.to(device)
 
 # 把 data 分為 training data 跟 validation data（將一部份 training data 拿去當作 validation data）
 # X_train, X_val, y_train, y_val = train_x[:
