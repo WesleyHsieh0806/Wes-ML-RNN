@@ -410,16 +410,16 @@ class LSTM_Net(nn.Module):
                 start, end = n//4, n//2
                 bias.data[start:end].fill_(1.)
         # for model5
-        self.lstm51 = nn.LSTM(embedding_dim, hidden_dim,
-                              num_layers=1, batch_first=True, bidirectional=bi, dropout=0.3)
-        self.lstm52 = nn.LSTM(hidden_dim*2, hidden_dim,
-                              num_layers=1, batch_first=True, bidirectional=bi, dropout=0.3)
-        self.lstm53 = nn.LSTM(hidden_dim*2, hidden_dim,
-                              num_layers=1, batch_first=True, bidirectional=bi, dropout=0.3)
-        self.lstm54 = nn.LSTM(hidden_dim*2, hidden_dim,
-                              num_layers=1, batch_first=True, bidirectional=bi, dropout=0.3)
-        self.lstm55 = nn.LSTM(hidden_dim*2, hidden_dim,
-                              num_layers=1, batch_first=True, bidirectional=bi)
+        self.lstm51 = nn.GRU(embedding_dim, hidden_dim,
+                             num_layers=1, batch_first=True, bidirectional=bi, dropout=0.3)
+        self.lstm52 = nn.GRU(hidden_dim*2, hidden_dim,
+                             num_layers=1, batch_first=True, bidirectional=bi, dropout=0.3)
+        self.lstm53 = nn.GRU(hidden_dim*2, hidden_dim,
+                             num_layers=1, batch_first=True, bidirectional=bi, dropout=0.3)
+        self.lstm54 = nn.GRU(hidden_dim*2, hidden_dim,
+                             num_layers=1, batch_first=True, bidirectional=bi, dropout=0.3)
+        self.lstm55 = nn.GRU(hidden_dim*2, hidden_dim,
+                             num_layers=1, batch_first=True, bidirectional=bi)
         for names in self.lstm51._all_weights:
             for name in filter(lambda n: "bias" in n,  names):
                 # filter返回names中有bias的部份形成的list
@@ -554,10 +554,10 @@ class LSTM_Net(nn.Module):
         h53, _ = self.lstm53(h52, None)
         h53 = self.layer_normalization(h53)
 
-        h54, _ = self.lstm54(h53, None)
-        h54 = self.layer_normalization(h54)
+        # h54, _ = self.lstm54(h53, None)
+        # h54 = self.layer_normalization(h54)
 
-        x5, _ = self.lstm55(h54, None)
+        x5, _ = self.lstm55(h53, None)
 
         x5 = x5[:, -1, :]
         # x 的 dimension (batch, seq_len, hidden_size)
@@ -695,7 +695,7 @@ w2v_path = os.path.join(path_prefix, 'w2v_all.model')
 sen_len = 30
 fix_embedding = True  # fix embedding during training
 batch_size = 128
-epoch = 9
+epoch = 8
 lr = 0.001
 w2v_vector_dim = 200
 # model_dir = os.path.join(path_prefix, 'model/') # model directory for checkpoint model
